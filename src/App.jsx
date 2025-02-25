@@ -2,7 +2,10 @@ import Home from './pages/home'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import AdminOrUserDashboard from './pages/AdminOrUserDashboard';
+import { ProtectedRoute } from './services/ProtectedRoute';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { fetchProfile } from './services/profileApi';
 
 const route = createBrowserRouter([
   {
@@ -19,12 +22,26 @@ const route = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard />
+    element: <ProtectedRoute />,
+
+    children: [
+      {
+        path: "",
+        element: <AdminOrUserDashboard />,
+      }
+    ]
+
   },
 ])
 
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={route} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={route} />
+    </QueryClientProvider>
+  )
 }
 
 export default App

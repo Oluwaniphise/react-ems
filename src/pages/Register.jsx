@@ -1,8 +1,15 @@
 import React from 'react';
 import { AuthForm } from '../components/AuthForm';
+import { Navbar } from '../components/Navbar';
 
 
 export const Register = () => {
 
-    return <AuthForm authMode='register' />
+    return (
+        <>
+            <Navbar />
+            <AuthForm authMode='register' />
+        </>
+
+    )
 }
