@@ -5,7 +5,6 @@ import { Register } from './pages/Register';
 import AdminOrUserDashboard from './pages/AdminOrUserDashboard';
 import { ProtectedRoute } from './services/ProtectedRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fetchProfile } from './services/profileApi';
 
 const route = createBrowserRouter([
   {
