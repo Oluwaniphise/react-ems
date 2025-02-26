@@ -4,13 +4,12 @@ import TasksStore from '../stores/TasksStore';
 
 function AddNEditTask({ employees, task = null, onClose }) {
     const { updateTask } = TasksStore();
-    console.log(task)
-    console.log(employees)
 
     const [title, setTitle] = useState(task?.title || '');
     const [description, setDescription] = useState(task?.description || '');
     const [deadline, setDeadline] = useState(task?.deadline || "");
     const [assignedTo, setAssignedTo] = useState(task?.assignedTo || "");
+    
 
     const { mutate, isPending: isLoading, isError: error } = useAddTask();
     const { mutate:updateTaskMutation, isPending: isLoadingEdit, isError: isErrorEdit } = useUpdateTask();

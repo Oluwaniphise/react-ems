@@ -1,9 +1,9 @@
 import { supabase } from './supabase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useFetchAllTasksForAdmin = (userId) => {
+export const useFetchAllTasksForAdmin = () => {
   return useQuery({
-    queryKey: ['Tasks', userId],
+    queryKey: ['Tasks'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('Tasks')

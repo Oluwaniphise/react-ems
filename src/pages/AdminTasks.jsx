@@ -11,7 +11,7 @@ import { usefetchAllProfiles } from '../services/profileApi';
 export const AdminTasks = () => {
     const { user } = useUserStore();
     const { tasks, setTasks, deleteTask } = TasksStore();
-    const { data: fetchedTasks, isLoading, error } = useFetchAllTasksForAdmin(user.id);
+    const { data: fetchedTasks, isLoading, error } = useFetchAllTasksForAdmin();
     const { data: allProfiles } = usefetchAllProfiles();
 
     const [openTaskId, setOpenTaskId] = useState(null);
@@ -33,7 +33,6 @@ export const AdminTasks = () => {
     }, [fetchedTasks, setTasks]);
 
 
-   
 
     function getUserName(userId) {
 
@@ -41,7 +40,6 @@ export const AdminTasks = () => {
         const profile = allProfiles?.find((user) => user.id === userId);
         return profile.username
     }
-
 
 
     const handleDeleteTask = (taskId) => {
@@ -71,7 +69,9 @@ export const AdminTasks = () => {
                         <div key={task.id} className="relative border px-5 py-10  rounded-xl">
                             <h2 className="text-2xl">{task.title}</h2>
                             <p className='text-base py-3'>{task.description}</p>
-                            <p className='text-base'>Due by: {task.deadline}</p>
+                            <p className='text-base text-gray-500'>Due by: {task.deadline}</p>
+                            <p className='text-base text-gray-500'>Status: {task.status}</p>
+
 
 
                             <small>Assigned to: {getUserName(task.assigned_to)}</small>
