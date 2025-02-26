@@ -24,7 +24,7 @@ export const Navbar = () => {
         <div>
             <div className='bg-blue-500 text-white'>
                 <div className='px-5 py-5 flex flex-row justify-between items-center'>
-                    <Link to="/">EMS.</Link>
+                    <Link to="/" className='text-3xl'>EMS.</Link>
 
                     <div className='flex flex-row gap-5 justify-between items-center'>
                         {!accessToken && <Link to="/login">Login</Link>}
