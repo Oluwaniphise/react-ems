@@ -47,7 +47,6 @@ const UserTasks = () => {
                         <h2 className="text-2xl">{task.title}</h2>
                         <p className='text-base py-3'>{task.description}</p>
                         <p className='text-base text-gray-500'>Due by: {task.deadline}</p>
-                        <p className='text-base text-gray-500'>Status: {task.status}</p>
                     </div>
                 )}
             </Draggable>
@@ -76,7 +75,7 @@ const UserTasks = () => {
                                     <div
                                         ref={provided.innerRef}
                                         {...provided.droppableProps}
-                                        className='w-full min-h-[200px] border rounded-xl p-4 bg-gray-100 shadow-md'
+                                        className='flex flex-col gap-4 w-full min-h-[200px] border rounded-xl p-4 bg-gray-100 shadow-md'
                                     >
                                         <h1 className='text-xl font-semibold mb-4'>{status}</h1>
                                         {renderTasks(getTasksByCategory(status))}
