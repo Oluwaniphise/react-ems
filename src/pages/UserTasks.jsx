@@ -3,7 +3,6 @@ import { useFetchIndividualTasks } from '../services/taskApis';
 import TasksStore from '../stores/TasksStore';
 import { Navbar } from '../components/Navbar';
 import useUserStore from '../stores/userStore';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const UserTasks = () => {
     const { tasks, setTasks } = TasksStore();
     const { user } = useUserStore();
