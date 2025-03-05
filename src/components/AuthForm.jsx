@@ -28,20 +28,9 @@ export const AuthForm = ({ authMode }) => {
             password: formData.password,
         });
 
-        console.log(data)
 
-        if (data) {
-
-            const { data, error } = await supabase
-                .from('Profile')
-                .insert([
-                    { is_admin: false },
-                ])
-                .select()
-            if (data) {
-                navigate('/login')
-
-            }
+        if (data && !error) {
+            navigate('/login')
         }
 
         if (error) {
@@ -51,6 +40,36 @@ export const AuthForm = ({ authMode }) => {
         }
     };
 
+    const createProfileIfNotExists = async (user) => {
+        // Check if a profile with the given user ID exists
+        const { data: existingProfile, error: selectError } = await supabase
+            .from('Profile')
+            .select('*')
+            .eq('id', user.id)
+            .maybeSingle();
+
+        if (selectError) {
+            setMessage(selectError.message)
+            return;
+        }
+
+        // If no profile exists, insert a new one
+        if (!existingProfile) {
+            const { data: newProfile, error: insertError } = await supabase
+                .from('Profile')
+                .insert([{ id: user.id, is_admin: false }]);
+
+            if (insertError) {
+                setMessage(selectError.message)
+                return;
+            }
+
+        } else {
+            setMessage("Profile already exists")
+        }
+    };
+
+
     const handleLoginnSubmit = async (e) => {
         e.preventDefault();
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -59,10 +78,12 @@ export const AuthForm = ({ authMode }) => {
         });
 
         if (data.user && data.session) {
-            navigate('/dashboard')
+            await createProfileIfNotExists(data.user);
             localStorage.setItem("accessToken", JSON.stringify(data.session.access_token))
             localStorage.setItem("user", JSON.stringify(data.user));
             setUser(data.user);
+            navigate('/dashboard')
+
 
         }
 

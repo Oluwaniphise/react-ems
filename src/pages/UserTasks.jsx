@@ -61,14 +61,13 @@ const UserTasks = () => {
             <div>
                 {isLoading && <p>Loading tasks...</p>}
                 {error && <p>{error.message}</p>}
-                {tasks.length === 0 && <p>No tasks assigned</p>}
             </div>
 
             <div className="w-full container mx-auto p-4 py-8">
                 <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
                 <h3 className='text-xl font-bold mb-4'>Your Tasks</h3>
 
-                <div className='w-full flex flex-row justify-between gap-10'>
+                { tasks.length > 0 ? ( <div className='w-full flex flex-row justify-between gap-10'>
                     {['todo', 'in_progress', 'completed'].map(status => (
                         <div
                             key={status}
@@ -80,8 +79,14 @@ const UserTasks = () => {
                             {getTasksByCategory(status).length > 0 ? renderTasks(getTasksByCategory(status)) : <p>No tasks</p>}
                         </div>
                     ))}
-                </div>
+                </div>) : (<div className='flex flex-col justify-center items-center mt-20'>No assigned tasks. Kindly contact admin</div>) }
             </div>
+
+            {/* <div className='flex flex-col justify-center items-center'>
+                {tasks.length === 0 && }
+            </div> */}
+
+
         </>
     );
 };
